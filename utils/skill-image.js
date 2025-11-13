@@ -104,8 +104,8 @@ export const skillsImage = (skill) => {
       return afterEffects;
     case 'css':
       return css;
-    case 'angular':
-      return angular;
+    // case 'angular':
+    //   return angular;
     case 'javascript':
       return javascript;
     case 'next js':

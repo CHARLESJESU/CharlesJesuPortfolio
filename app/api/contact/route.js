@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
@@ -7,27 +6,12 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   host: 'smtp.gmail.com',
   port: 587,
-  secure: false, 
+  secure: false,
   auth: {
     user: process.env.EMAIL_ADDRESS,
-    pass: process.env.GMAIL_PASSKEY, 
+    pass: process.env.GMAIL_PASSKEY,
   },
 });
-
-// Helper function to send a message via Telegram
-async function sendTelegramMessage(token, chat_id, message) {
-  const url = `https://api.telegram.org/bot${token}/sendMessage`;
-  try {
-    const res = await axios.post(url, {
-      text: message,
-      chat_id,
-    });
-    return res.data.ok;
-  } catch (error) {
-    console.error('Error sending Telegram message:', error.response?.data || error.message);
-    return false;
-  }
-};
 
 // HTML email template
 const generateEmailTemplate = (name, email, userMessage) => `
@@ -48,64 +32,69 @@ const generateEmailTemplate = (name, email, userMessage) => `
 // Helper function to send an email via Nodemailer
 async function sendEmail(payload, message) {
   const { name, email, message: userMessage } = payload;
-  
+
   const mailOptions = {
-    from: "Portfolio", 
-    to: process.env.EMAIL_ADDRESS, 
-    subject: `New Message From ${name}`, 
-    text: message, 
-    html: generateEmailTemplate(name, email, userMessage), 
-    replyTo: email, 
+    from: `Portfolio <${process.env.EMAIL_ADDRESS}>`,
+    to: 'charlesjmng@gmail.com', // deliver all contact form messages here
+    subject: `New Message From ${name}`,
+    text: message,
+    html: generateEmailTemplate(name, email, userMessage),
+    replyTo: email,
   };
-  
+
   try {
     await transporter.sendMail(mailOptions);
     return true;
   } catch (error) {
-    console.error('Error while sending email:', error.message);
-    return false;
+    // Log full error for debugging
+    console.error('Error while sending email:', error);
+    // Return the error object so callers can surface the message in dev
+    return { ok: false, error };
   }
-};
+}
 
 export async function POST(request) {
   try {
+    // Quick env check to help debugging SMTP issues
+    if (!process.env.EMAIL_ADDRESS || !process.env.GMAIL_PASSKEY) {
+      console.error('Missing SMTP env vars:', {
+        EMAIL_ADDRESS: Boolean(process.env.EMAIL_ADDRESS),
+        GMAIL_PASSKEY: Boolean(process.env.GMAIL_PASSKEY),
+      });
+      return NextResponse.json({ success: false, message: 'SMTP credentials not configured on server.', error: 'Missing EMAIL_ADDRESS or GMAIL_PASSKEY' }, { status: 500 });
+    }
+
     const payload = await request.json();
     const { name, email, message: userMessage } = payload;
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    const chat_id = process.env.TELEGRAM_CHAT_ID;
-
-    // Validate environment variables
-    if (!token || !chat_id) {
-      return NextResponse.json({
-        success: false,
-        message: 'Telegram token or chat ID is missing.',
-      }, { status: 400 });
+    // Basic validation
+    if (!name || !email || !userMessage) {
+      return NextResponse.json({ success: false, message: 'Name, email and message are required.' }, { status: 400 });
     }
 
     const message = `New message from ${name}\n\nEmail: ${email}\n\nMessage:\n\n${userMessage}\n\n`;
 
-    // Send Telegram message
-    const telegramSuccess = await sendTelegramMessage(token, chat_id, message);
+    // Send email only to the configured recipient
+    const result = await sendEmail(payload, message);
 
-    // Send email
-    const emailSuccess = await sendEmail(payload, message);
-
-    if (telegramSuccess && emailSuccess) {
-      return NextResponse.json({
-        success: true,
-        message: 'Message and email sent successfully!',
-      }, { status: 200 });
+    if (result === true) {
+      return NextResponse.json({ success: true, message: 'Message sent successfully!' }, { status: 200 });
     }
 
-    return NextResponse.json({
-      success: false,
-      message: 'Failed to send message or email.',
-    }, { status: 500 });
+    // If result is an object, include the SMTP error message in the response when available
+    const smtpMessage = result && result.error ? result.error.message || String(result.error) : 'Unknown SMTP error';
+    console.error('SMTP send failed:', smtpMessage);
+    return NextResponse.json({ success: false, message: 'Failed to send email.', error: smtpMessage }, { status: 500 });
   } catch (error) {
-    console.error('API Error:', error.message);
+    console.error('API Error:', error);
     return NextResponse.json({
       success: false,
       message: 'Server error occurred.',
+      error: error.message || String(error),
     }, { status: 500 });
   }
 };
+
+// Optional GET handler for quick health checks while testing locally
+export async function GET() {
+  return NextResponse.json({ ok: true, message: 'Contact API is up' });
+}

@@ -151,7 +151,7 @@ Eg:
 
 ```javascript
 export const personalData = {
-  name: "ABU SAID",
+  name: "CHARLES J",
   profile: "/profile.png",
   designation: "Full-Stack Software Developer",
   description: "My name is ABU SAID....",
