@@ -68,6 +68,7 @@ function ContactForm() {
               onChange={(e) => setUserInput({ ...userInput, name: e.target.value })}
               onBlur={checkRequired}
               value={userInput.name}
+              suppressHydrationWarning={true}
             />
           </div>
 
@@ -84,6 +85,7 @@ function ContactForm() {
                 checkRequired();
                 setError({ ...error, email: !isValidEmail(userInput.email) });
               }}
+              suppressHydrationWarning={true}
             />
             {error.email && <p className="text-sm text-red-400">Please provide a valid email!</p>}
           </div>
@@ -99,6 +101,7 @@ function ContactForm() {
               onBlur={checkRequired}
               rows="4"
               value={userInput.message}
+              suppressHydrationWarning={true}
             />
           </div>
           <div className="flex flex-col items-center gap-3">
@@ -110,6 +113,7 @@ function ContactForm() {
               role="button"
               onClick={handleSendMail}
               disabled={isLoading}
+              suppressHydrationWarning={true}
             >
               {
                 isLoading ?

@@ -7,7 +7,7 @@ export const personalData = {
   phone: '+91 7004523079',
   address: 'IMA hostel, Thirumalisai, Poonamallee, Chennai - 600124',
   github: 'https://github.com/CHARLESJESU',
-  linkedIn: 'www.linkedin.com/in/charles-j-7bb299297',
+  linkedIn: 'https://www.linkedin.com/in/charles-j-7bb299297/',
   leetcode: "https://leetcode.com/Charles2006/",
   devUsername: "said7388",
   resume: "https://drive.google.com/file/d/1zcEi7hdxJGBKEjiFWsBbTal20Cx7mlMv/view?usp=drive_link",
