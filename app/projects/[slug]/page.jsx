@@ -56,6 +56,38 @@ const projects = {
   'student-registration-hub': {
     title: 'Student Registration Hub',
     images: ['/studentregistrationportal/Screenshot 2025-10-12 122201.png']
+  },
+  'Cinefo-Driver': {
+    title: 'Cinefo Driver App',
+    images: [
+      '/cinefo_driver/IMG-20251121-WA0012.jpg',
+      '/cinefo_driver/IMG-20251121-WA0013.jpg',
+      '/cinefo_driver/IMG-20251121-WA0014.jpg',
+      '/cinefo_driver/IMG-20251121-WA0015.jpg',
+      '/cinefo_driver/IMG-20251121-WA0016.jpg',
+      '/cinefo_driver/IMG-20251121-WA0017.jpg',
+      '/cinefo_driver/IMG-20251121-WA0018.jpg',
+      '/cinefo_driver/IMG-20251121-WA0019.jpg',
+      '/cinefo_driver/IMG-20251121-WA0020.jpg',
+      '/cinefo_driver/IMG-20251121-WA0021.jpg',
+      '/cinefo_driver/IMG-20251121-WA0022.jpg'
+    ]
+  },
+  'Hostelia': {
+    title: 'Hostelia',
+    images: [
+      '/hostelia/IMG-20251121-WA0001.jpg',
+      '/hostelia/IMG-20251121-WA0002.jpg',
+      '/hostelia/IMG-20251121-WA0003.jpg',
+      '/hostelia/IMG-20251121-WA0004.jpg',
+      '/hostelia/IMG-20251121-WA0005.jpg',
+      '/hostelia/IMG-20251121-WA0006.jpg',
+      '/hostelia/IMG-20251121-WA0007.jpg',
+      '/hostelia/IMG-20251121-WA0008.jpg',
+      '/hostelia/IMG-20251121-WA0009.jpg',
+      '/hostelia/IMG-20251121-WA0010.jpg',
+      '/hostelia/IMG-20251121-WA0011.jpg'
+    ]
   }
 };
 

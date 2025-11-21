@@ -1,17 +1,18 @@
 "use client";
 // @flow strict
-import { useState } from 'react';
-import { FaArrowRight } from 'react-icons/fa';
 import BlogCard from './blog-card';
 
 function Blog() {
-  const [showMore, setShowMore] = useState(false);
 
   const cards = [
-    { image: '/faabor.png', logo: '/faabor.png', title: 'Faabor — Food Donate', date: 'Apr 2024', hearts: 82, comments: 3, images: ['/faabor.png'] },
-    { image: '/splashlogo.png', logo: '/splashlogo.png', title: 'Kiddo Call', date: 'July 2024', hearts: 56, comments: 5, images: ['/splashlogo.png'] },
-    { image: '/nivethaapp.jpg', logo: '/nivethaapp.jpg', title: 'Worknest', date: 'Sept 2024', hearts: 96, comments: 7, images: ['/nivethaapp.png'] },
-    { image: '/studentcollege.png', logo: '/studentcollege.png', title: 'Student Registration Hub', date: 'Mar 2025', hearts: 124, comments: 3, images: ['/studentcollege.png'] }
+    { image: '/faabor.png', logo: '/faabor.png', title: 'Faabor — Food Donate', date: 'Apr 2024', hearts: 82, comments: 3, images: ['/faabor.png'], slug: 'faabor-food-donate' },
+    { image: '/splashlogo.png', logo: '/splashlogo.png', title: 'Kiddo Call', date: 'July 2024', hearts: 56, comments: 5, images: ['/splashlogo.png'], slug: 'kiddo-call' },
+    { image: '/nivethaapp.jpg', logo: '/nivethaapp.jpg', title: 'Worknest', date: 'Sept 2024', hearts: 96, comments: 7, images: ['/nivethaapp.png'], slug: 'nivetha-app' },
+    { image: '/studentcollege.png', logo: '/studentcollege.png', title: 'Student Registration Hub', date: 'Mar 2025', hearts: 124, comments: 3, images: ['/studentcollege.png'], slug: 'student-registration-hub' },
+    { image: '/driver_union_logo.png', logo: '/driver_union_logo.png', title: 'Cinefo Driver App', date: 'Sept 2025', hearts: 116, comments: 2, images: ['/driver_union_logo.png'], slug: 'Cinefo-Driver' },
+    { image: '/hostelia-logo.png', logo: '/hostelia-logo.png', title: 'Hostelian', date: 'Oct 2025', hearts: 166, comments: 5, images: ['/hostelia-logo.png'], slug: 'Hostelia' },
+ 
+ 
   ];
 
   return (
@@ -35,7 +36,7 @@ function Blog() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 lg:gap-8 xl:gap-10">
-        {cards.slice(0, showMore ? 4 : 3).map((c, i) => (
+        {cards.map((c, i) => (
           <BlogCard
             key={i}
             image={c.image}
@@ -45,20 +46,9 @@ function Blog() {
             hearts={c.hearts}
             comments={c.comments}
             images={c.images}
+            slug={c.slug}
           />
         ))}
-      </div>
-
-      <div className="flex justify-center  mt-5 lg:mt-12">
-        <button
-          onClick={() => setShowMore(!showMore)}
-          className="flex items-center gap-1 hover:gap-3 rounded-full bg-gradient-to-r from-pink-500 to-violet-600 px-3 md:px-8 py-3 md:py-4 text-center text-xs md:text-sm font-medium uppercase tracking-wider text-white no-underline transition-all duration-200 ease-out hover:text-white hover:no-underline md:font-semibold"
-          role="button"
-          suppressHydrationWarning={true}
-        >
-          <span>{showMore ? 'View Less' : 'View More'}</span>
-          <FaArrowRight size={16} />
-        </button>
       </div>
     </div>
   );

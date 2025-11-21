@@ -11,7 +11,8 @@ function BlogCard({
   date = 'Oct 2025',
   hearts = 124,
   comments = 8,
-  readTime = '5 Min Read'
+  readTime = '5 Min Read',
+  slug = 'faabor-food-donate'
 }) {
 
   return (
@@ -50,7 +51,7 @@ function BlogCard({
 
         <div className="flex items-center gap-3">
           {/* navigate to project page to view images */}
-          <a href={`/projects/${encodeURIComponent(title.toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-'))}`} className="bg-violet-600 hover:bg-violet-700 text-white px-3 py-2 rounded-md text-sm no-underline inline-block">
+          <a href={`/projects/${slug}`} className="bg-violet-600 hover:bg-violet-700 text-white px-3 py-2 rounded-md text-sm no-underline inline-block">
             View Image
           </a>
         </div>

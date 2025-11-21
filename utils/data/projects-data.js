@@ -34,7 +34,25 @@ export const projectsData = [
         code: '',
         demo: '',
         role: 'Full Stack Developer',
-    }
+    },
+    // {
+    //     id: 5,
+    //     name: 'Hostelia',
+    //     description: 'I built an app to help with hostel and PG management. They can monitor room availability, electricity consumption monitoring, and food management.',
+    //     tools: ['Flutter', 'Dart', 'JavaSpring Boot', 'MySQL'],
+    //     code: '',
+    //     demo: '',
+    //     role: 'Full Stack Developer',
+    // },
+    // {
+    //     id: 6,
+    //     name: 'Cinefo Driver App',
+    //     description: 'I built an app to help drivers who are assigned to pick up passengers by their supervisors. Supervisors can assign trips to respective driver members and monitor their attendance.',
+    //     tools: ['Flutter', 'Dart', 'JavaSpring Boot', 'MySQL'],
+    //     code: '',
+    //     demo: '',
+    //     role: 'Full Stack Developer',
+    // }
 ];
 
 
